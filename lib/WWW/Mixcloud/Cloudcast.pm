@@ -19,6 +19,12 @@ has tags => (
     is       => 'ro',
     required => 1,
     default  => sub { [] },
+    traits   => ['Array'],
+    handles  => {
+        add_tag        => 'push',
+        all_tags       => 'elements',
+        number_of_tags => 'count',
+    },
 );
 
 has url => (
@@ -31,6 +37,13 @@ has pictures => (
     isa      => 'ArrayRef[WWW::Mixcloud::Picture]',
     is       => 'ro',
     required => 1,
+    default  => sub { [] },
+    traits   => ['Array'],
+    handles  => {
+        add_picture        => 'push',
+        all_pictures       => 'elements',
+        number_of_pictures => 'count',
+    },
 );
 
 has update_time => (
@@ -85,6 +98,13 @@ has sections => (
     isa      => 'ArrayRef[WWW::Mixcloud::Cloudcast::Section]',
     is       => 'ro',
     required => 1,
+    default  => sub { [] },
+    traits   => ['Array'],
+    handles  => {
+        add_section        => 'push',
+        all_sections       => 'elements',
+        number_of_sections => 'count',
+    },
 );
 
 has slug => (
