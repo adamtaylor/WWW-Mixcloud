@@ -1,6 +1,7 @@
 package WWW::Mixcloud::Cloudcast;
 
 use Moose;
+use namespace::autoclean;
 
 has listener_count => (
     isa      => 'Num',
@@ -15,7 +16,7 @@ has name => (
 );
 
 has tags => (
-    isa      => 'ArrayRef[WWW::Mixcloud::Cloudcast::Tag]'
+    isa      => 'ArrayRef[WWW::Mixcloud::Cloudcast::Tag]',
     is       => 'ro',
     required => 1,
     default  => sub { [] },
@@ -118,5 +119,38 @@ has description => (
     is       => 'ro',
     required => 1,
 );
+
+__PACKAGE__->meta->make_immutable;
+
+=head2 new_from_data
+
+=cut
+
+sub new_from_data {
+    my $class = shift;
+    my $data  = shift || croak 'Data reference required for construction';
+
+    my $user = WWW::Mixcloud::User->new_from_data( $data->{user} );
+    my $tags = WWW::Mixcloud::Tags->new_list_from_data( $data->{tags} );
+
+    my $cloudcast = WWW::Mixcloud::Cloudcast->new({
+        listener_count   => $data->{listener_count},
+        name             => $data->{name},
+        tags             => [],
+        url              => $data->{url},
+        pictures         => [],
+        update_time      => DateTime::Format::Atom->parse_datetime( $data->{updated_time} ),
+        play_count       => $data->{play_count},
+        comment_count    => $data->{comment_count},
+        percentage_music => $data->{percentage_music},
+        user             => $user,
+        key              => $data->{key},
+        created_time     => DateTime::Format::Atom->parse_datetime( $data->{created_time} ),
+        audio_length     => $data->{audio_length},
+        sections         => [],
+        slug             => $data->{slug},
+        description      => $data->{description},
+    });
+}
 
 1;

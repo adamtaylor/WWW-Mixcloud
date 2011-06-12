@@ -1,6 +1,7 @@
 package WWW::Mixcloud::Cloudcast::Tag;
 
 use Moose;
+use namespace::autoclean;
 
 has url => (
     isa      => 'Str',

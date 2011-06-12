@@ -1,9 +1,17 @@
 package WWW::Mixcloud;
 
 use Moose;
+use namespace::autoclean;
+
 use URI;
 use LWP::UserAgent;
 use JSON;
+use DateTime::Format::Atom;
+
+use WWW::Mixcloud::Cloudcast;
+use WWW::Mixcloud::User;
+use WWW::Mixcloud::Picture;
+
 use Data::Dump qw/ pp /;
 
 has api_key => (
@@ -24,6 +32,8 @@ has ua => (
     lazy_build => 1,
 );
 
+__PACKAGE__->meta->make_immutable;
+
 my $API_BASE = 'http://api.mixcloud.com';
 
 sub _build_ua {
@@ -43,30 +53,38 @@ sub cloudcast {
 
     my $uri = URI->new( $url );
 
-    my $data = decode_json $self->_api_call( $uri->path );
+    my $data = $self->_api_call( $uri->path );
 
-    warn pp $data;
-
-    my $cloudcast = WWW::Mixcloud::Cloudcast->new({
-        listener_count   => $data->listener_count,
-        name             => $data->name,
-        tags             =>
-        url              => $data->url,
-        pictures         => 
-        update_time      => DateTime->new( $data->update_time ),
-        play_count       => $data->play_count,
-        comment_count    => $data->comment_count,
-        percantage_music => $data->percentage_music,
-        user             => $data->user,
-        key              => $data->key,
-        created_time     => DateTime->new( $data->created_time ),
-        audio_length     => $data->audio_length,
-        sections         =>
-        slug             => $data->slug,
-        description      => $data->description,
-    });
+    my $cloudcast = WWW::Mixcloud::Cloudcast->new_from_data( $data );
+    warn pp $cloudcast;
 
     return $cloudcast;
+}
+
+sub user {
+    my ( $self, $url ) = @_;
+
+    my $uri = URI->new( $url );
+
+    my $data = $self->_api_call( $uri->path );
+
+    my @pictures;
+
+    foreach ( @{$data}->pictures ) {
+        push @pictures, WWW::Mixcloud::Picture->new({
+            size => $_->{size},
+            url  => $_->{url},
+        });
+    }
+
+    my $user = WWW::Mixcloud::User->new({
+        url      => $data->{url},
+        username => $data->{username},
+        name     => $data->{name},
+        key      => $data->{key},
+        pictures => \@pictures,
+    });
+
 }
 
 sub _api_call {
@@ -78,7 +96,7 @@ sub _api_call {
         #warn pp $res->content;
     }
 
-    return $res->content;
+    return decode_json $res->content;
 
 }
 

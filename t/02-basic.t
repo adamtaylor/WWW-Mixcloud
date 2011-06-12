@@ -21,6 +21,10 @@ SKIP: {
         $mixcloud->cloudcast('http://www.mixcloud.com/spartacus/party-time/'),
         'Got some cloud cast data'
     );
+    ok(
+        $mixcloud->user('http://www.mixcloud.com/spartacus/'),
+        'Got some mixcloud user data'
+    );
 }
 
 done_testing;
