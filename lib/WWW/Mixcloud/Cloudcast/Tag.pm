@@ -45,4 +45,20 @@ sub new_list_from_data {
     return \@tags;
 }
 
+=head2 new_from_tag
+
+=cut
+
+sub new_from_data {
+    my $class = shift;
+    my $data  = shift || croak 'Data reference required for construction';
+
+    return $class->new({
+        url  => $data->{url},
+        name => $data->{name},
+        key  => $data->{key},
+    });
+}
+
+
 1;
