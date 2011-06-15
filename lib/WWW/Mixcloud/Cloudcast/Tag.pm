@@ -45,7 +45,7 @@ sub new_list_from_data {
     return \@tags;
 }
 
-=head2 new_from_tag
+=head2 new_from_data
 
 =cut
 

@@ -95,7 +95,7 @@ sub get_artist {
     return WWW::Mixcloud::Artist->new_from_data( $data );
 }
 
-=haed2 get_track
+=head2 get_track
 
 =cut
 
