@@ -3,6 +3,8 @@ package WWW::Mixcloud::Cloudcast::Tag;
 use Moose;
 use namespace::autoclean;
 
+use Carp qw/ croak/;
+
 has url => (
     isa      => 'Str',
     is       => 'ro',
@@ -20,5 +22,27 @@ has key => (
     is       => 'ro',
     required => 1,
 );
+
+__PACKAGE__->meta->make_immutable;
+
+=head2 new_list_from_data
+
+=cut
+
+sub new_list_from_data {
+    my $class = shift;
+    my $data  = shift || croak 'Data reference required for construction';
+
+    my @tags;
+    foreach my $tag ( @{$data} ) {
+        push @tags, $class->new({
+            url  => $tag->{url},
+            name => $tag->{name},
+            key  => $tag->{key},
+        });
+    }
+
+    return \@tags;
+}
 
 1;
