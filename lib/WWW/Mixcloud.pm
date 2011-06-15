@@ -9,8 +9,11 @@ use JSON;
 use DateTime::Format::Atom;
 
 use WWW::Mixcloud::Cloudcast;
+use WWW::Mixcloud::Cloudcast::Tag;
+use WWW::Mixcloud::Artist;
+use WWW::Mixcloud::Category;
+use WWW::Mixcloud::Track;
 use WWW::Mixcloud::User;
-use WWW::Mixcloud::Picture;
 
 use Data::Dump qw/ pp /;
 
@@ -51,14 +54,9 @@ sub _build_ua {
 sub get_cloudcast {
     my ( $self, $url ) = @_;
 
-    my $uri = URI->new( $url );
+    my $data = $self->_api_call( $url );
 
-    my $data = $self->_api_call( $uri->path );
-
-    my $cloudcast = WWW::Mixcloud::Cloudcast->new_from_data( $data );
-    warn pp $cloudcast;
-
-    return $cloudcast;
+    return WWW::Mixcloud::Cloudcast->new_from_data( $data );
 }
 
 =head2 get_user
@@ -68,13 +66,9 @@ sub get_cloudcast {
 sub get_user {
     my ( $self, $url ) = @_;
 
-    my $uri = URI->new( $url );
+    my $data = $self->_api_call( $url );
 
-    my $data = $self->_api_call( $uri->path );
-
-    my $user = WWW::Mixcloud::User->new_from_data( $data );
-
-    return $user;
+    return WWW::Mixcloud::User->new_from_data( $data );
 }
 
 =head2 get_tag
@@ -82,7 +76,11 @@ sub get_user {
 =cut
 
 sub get_tag {
+    my ( $self, $url ) = @_;
 
+    my $data = $self->_api_call( $url );
+
+    return WWW::Mixcloud::Cloudcast::Tag->new_from_data( $data );
 }
 
 =head2 get_artist
@@ -90,7 +88,11 @@ sub get_tag {
 =cut
 
 sub get_artist {
+    my ( $self, $url ) = @_;
 
+    my $data = $self->_api_call( $url );
+
+    return WWW::Mixcloud::Artist->new_from_data( $data );
 }
 
 =haed2 get_track
@@ -98,7 +100,11 @@ sub get_artist {
 =cut
 
 sub get_track {
+    my ( $self, $url ) = @_;
 
+    my $data = $self->_api_call( $url );
+
+    return WWW::Mixcloud::Track->new_from_data( $data );
 }
 
 =head2 get_category
@@ -106,13 +112,19 @@ sub get_track {
 =cut
 
 sub get_category {
+    my ( $self, $url ) = @_;
 
+    my $data = $self->_api_call( $url );
+
+    return WWW::Mixcloud::Category->new_from_data( $data );
 }
 
 sub _api_call {
-    my ( $self, $path ) = @_;
+    my ( $self, $url ) = @_;
 
-    my $res = $self->ua->get( $API_BASE . $path );
+    my $uri = URI->new( $url );
+
+    my $res = $self->ua->get( $API_BASE . $uri->path );
 
     if ( $res->is_success ) { 
         #warn pp $res->content;
