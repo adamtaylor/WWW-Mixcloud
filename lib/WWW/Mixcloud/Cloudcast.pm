@@ -3,6 +3,13 @@ package WWW::Mixcloud::Cloudcast;
 use Moose;
 use namespace::autoclean;
 
+use Carp qw/ croak /;
+
+use WWW::Mixcloud::Cloudcast::Tag;
+use WWW::Mixcloud::Cloudcast::Section;
+use WWW::Mixcloud::Picture;
+use WWW::Mixcloud::User;
+
 has listener_count => (
     isa      => 'Num',
     is       => 'ro',
@@ -131,14 +138,18 @@ sub new_from_data {
     my $data  = shift || croak 'Data reference required for construction';
 
     my $user = WWW::Mixcloud::User->new_from_data( $data->{user} );
-    my $tags = WWW::Mixcloud::Tags->new_list_from_data( $data->{tags} );
+    my $tags = WWW::Mixcloud::Cloudcast::Tag->new_list_from_data( $data->{tags} );
+    my $pictures = WWW::Mixcloud::Picture->new_list_from_data( $data->{pictures} );
+    my $sections = WWW::Mixcloud::Cloudcast::Section->new_list_from_data(
+        $data->{sections}
+    );
 
-    my $cloudcast = WWW::Mixcloud::Cloudcast->new({
+    my $cloudcast = $class->new({
         listener_count   => $data->{listener_count},
         name             => $data->{name},
-        tags             => [],
+        tags             => $tags,
         url              => $data->{url},
-        pictures         => [],
+        pictures         => $pictures,
         update_time      => DateTime::Format::Atom->parse_datetime( $data->{updated_time} ),
         play_count       => $data->{play_count},
         comment_count    => $data->{comment_count},
@@ -147,7 +158,7 @@ sub new_from_data {
         key              => $data->{key},
         created_time     => DateTime::Format::Atom->parse_datetime( $data->{created_time} ),
         audio_length     => $data->{audio_length},
-        sections         => [],
+        sections         => $sections,
         slug             => $data->{slug},
         description      => $data->{description},
     });
