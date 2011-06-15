@@ -18,11 +18,11 @@ SKIP: {
     is($mixcloud->api_secret, $ENV{MIXCLOUD_SECRET}, 'Correct secret key');
     isa_ok($mixcloud->ua, 'LWP::UserAgent');
     ok(
-        $mixcloud->cloudcast('http://www.mixcloud.com/spartacus/party-time/'),
+        $mixcloud->get_cloudcast('http://www.mixcloud.com/spartacus/party-time/'),
         'Got some cloud cast data'
     );
     ok(
-        $mixcloud->user('http://www.mixcloud.com/spartacus/'),
+        $mixcloud->get_user('http://www.mixcloud.com/spartacus/'),
         'Got some mixcloud user data'
     );
 }
