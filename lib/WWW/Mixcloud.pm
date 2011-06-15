@@ -42,13 +42,13 @@ sub _build_ua {
     return LWP::UserAgent->new;
 }
 
-=head2 cloudcast
+=head2 get_cloudcast
 
-    my $cloudcast = $mixcloud->cloudcast( $url );
+    my $cloudcast = $mixcloud->get_cloudcast( $url );
 
 =cut
 
-sub cloudcast {
+sub get_cloudcast {
     my ( $self, $url ) = @_;
 
     my $uri = URI->new( $url );
@@ -61,29 +61,51 @@ sub cloudcast {
     return $cloudcast;
 }
 
-sub user {
+=head2 get_user
+
+=cut
+
+sub get_user {
     my ( $self, $url ) = @_;
 
     my $uri = URI->new( $url );
 
     my $data = $self->_api_call( $uri->path );
 
-    my @pictures;
+    my $user = WWW::Mixcloud::User->new_from_data( $data );
 
-    foreach ( @{$data}->pictures ) {
-        push @pictures, WWW::Mixcloud::Picture->new({
-            size => $_->{size},
-            url  => $_->{url},
-        });
-    }
+    return $user;
+}
 
-    my $user = WWW::Mixcloud::User->new({
-        url      => $data->{url},
-        username => $data->{username},
-        name     => $data->{name},
-        key      => $data->{key},
-        pictures => \@pictures,
-    });
+=head2 get_tag
+
+=cut
+
+sub get_tag {
+
+}
+
+=head2 get_artist
+
+=cut
+
+sub get_artist {
+
+}
+
+=haed2 get_track
+
+=cut
+
+sub get_track {
+
+}
+
+=head2 get_category
+
+=cut
+
+sub get_category {
 
 }
 
