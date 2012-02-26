@@ -8,7 +8,6 @@ use Carp qw/ croak /;
 use WWW::Mixcloud::Artist;
 
 has url => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
@@ -22,20 +21,17 @@ has artist => (
 
 
 has name => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 
 has key => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has slug => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
@@ -52,7 +48,7 @@ sub new_from_data {
 
     return $class->new({
         url    => $data->{url},
-        artist => WWW::Mixcloud::Artist->new_from_data( $data ),
+        artist => WWW::Mixcloud::Artist->new_from_data( $data->{artist} ),
         name   => $data->{name},
         key    => $data->{key},
         slug   => $data->{slug},

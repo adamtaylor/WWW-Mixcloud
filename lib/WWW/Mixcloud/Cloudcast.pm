@@ -1,3 +1,4 @@
+# ABSTRACT: Class to represent a cloudcast from the Mixcloud API
 package WWW::Mixcloud::Cloudcast;
 
 use Moose;
@@ -10,17 +11,31 @@ use WWW::Mixcloud::Cloudcast::Section;
 use WWW::Mixcloud::Picture;
 use WWW::Mixcloud::User;
 
+=head1 ATTRIBUTES
+
+=head2 listener_count
+
+=cut
+
 has listener_count => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
 
+=head2 name
+
+=cut
+
 has name => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
+
+=head2 tags
+
+ArrayRef of L<WWW::Mixcloud::Cloudcast::Tag> objects.
+
+=cut
 
 has tags => (
     isa      => 'ArrayRef[WWW::Mixcloud::Cloudcast::Tag]',
@@ -35,11 +50,20 @@ has tags => (
     },
 );
 
+=head2 url
+
+=cut
+
 has url => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
+
+=head2 pictures
+
+ArrayRef of L<WWW::Mixcloud::Picture> objects.
+
+=cut
 
 has pictures => (
     isa      => 'ArrayRef[WWW::Mixcloud::Picture]',
@@ -54,29 +78,49 @@ has pictures => (
     },
 );
 
+=head2 update_time
+
+L<DateTime> object.
+
+=cut
+
 has update_time => (
-    isa      => 'DateTime',
     is       => 'ro',
     required => 1,
 );
+
+=head2 play_count
+
+=cut
 
 has play_count => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
+
+=head2 comment_count
+
+=cut
 
 has comment_count => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
 
+=head2 percentage_music
+
+=cut
+
 has percentage_music => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
+
+=head2 user
+
+L<WWW::Mixcloud::User> object.
+
+=cut
 
 has user => (
     isa      => 'WWW::Mixcloud::User',
@@ -84,23 +128,38 @@ has user => (
     required => 1,
 );
 
+=head2 key
+
+=cut
+
 has key => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
+
+=head2 created_time
+
+=cut
 
 has created_time => (
-    isa      => 'DateTime',
     is       => 'ro',
     required => 1,
 );
 
+=head2 audio_length
+
+=cut
+
 has audio_length => (
-    isa      => 'Int',
     is       => 'ro',
     required => 1,
 );
+
+=head2 sections
+
+ArrayRef of L<WWW::Mixcloud::Cloudcast::Section> objects.
+
+=cut
 
 has sections => (
     isa      => 'ArrayRef[WWW::Mixcloud::Cloudcast::Section]',
@@ -115,21 +174,31 @@ has sections => (
     },
 );
 
+=head2 slug
+
+=cut
+
 has slug => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
+=head2 description
+
+=cut
+
 has description => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 __PACKAGE__->meta->make_immutable;
 
+=head1 METHODS
+
 =head2 new_from_data
+
+    my $cloudcast = WWW::Mixcloud::Cloudcast->new_from_data( $data )
 
 =cut
 

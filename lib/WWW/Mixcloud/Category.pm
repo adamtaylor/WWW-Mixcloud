@@ -8,31 +8,26 @@ use Carp qw/ croak /;
 use WWW::Mixcloud::Picture;
 
 has name => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has format => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has url => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has key => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has slug => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );

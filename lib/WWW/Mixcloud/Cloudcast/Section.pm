@@ -14,19 +14,16 @@ has track => (
 );
 
 has position => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
 
 has start_time => (
-    isa      => 'Num',
     is       => 'ro',
     required => 1,
 );
 
 has section_type => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );

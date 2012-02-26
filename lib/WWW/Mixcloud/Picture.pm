@@ -6,13 +6,11 @@ use namespace::autoclean;
 use Carp qw/ croak /;
 
 has size => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );
 
 has url => (
-    isa      => 'Str',
     is       => 'ro',
     required => 1,
 );

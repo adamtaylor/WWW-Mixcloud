@@ -60,6 +60,7 @@ use URI;
 use LWP::UserAgent;
 use JSON;
 use DateTime::Format::Atom;
+use Carp qw/ croak /;
 
 use WWW::Mixcloud::Cloudcast;
 use WWW::Mixcloud::Cloudcast::Tag;
@@ -71,13 +72,11 @@ use WWW::Mixcloud::User;
 use Data::Dump qw/ pp /;
 
 has api_key => (
-    isa      => 'Str',
     is       => 'ro',
     required => 0,
 );
 
 has api_secret => (
-    isa      => 'Str',
     is       => 'ro',
     required => 0,
 );
@@ -208,7 +207,7 @@ sub _api_call {
         return decode_json $res->content;
     }
     else {
-        warn 'API error';
+        croak 'API error: ' . $res->content;
     }
 }
 
