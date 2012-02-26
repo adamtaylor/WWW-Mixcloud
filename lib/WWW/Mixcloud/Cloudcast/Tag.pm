@@ -32,11 +32,7 @@ sub new_list_from_data {
 
     my @tags;
     foreach my $tag ( @{$data} ) {
-        push @tags, $class->new({
-            url  => $tag->{url},
-            name => $tag->{name},
-            key  => $tag->{key},
-        });
+        push @tags, $class->new_from_data( $tag );
     }
 
     return \@tags;
