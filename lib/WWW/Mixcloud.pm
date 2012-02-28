@@ -94,7 +94,9 @@ my $API_BASE = 'http://api.mixcloud.com';
 sub _build_ua {
     my $self = shift;
 
-    return LWP::UserAgent->new;
+    my $ua = LWP::UserAgent->new;
+    $ua->env_proxy;
+    return $ua;
 }
 
 =head2 get_cloudcast
