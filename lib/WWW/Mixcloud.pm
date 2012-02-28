@@ -209,7 +209,7 @@ sub _api_call {
         return decode_json $res->content;
     }
     else {
-        croak 'API error: ' . $res->content;
+        croak 'API error: ' . $res->status_line;
     }
 }
 
