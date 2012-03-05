@@ -5,6 +5,8 @@ use namespace::autoclean;
 
 use Carp qw/ croak/;
 
+# VERSION
+
 has url => (
     is       => 'ro',
     required => 1,

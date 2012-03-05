@@ -69,7 +69,7 @@ use WWW::Mixcloud::Category;
 use WWW::Mixcloud::Track;
 use WWW::Mixcloud::User;
 
-use Data::Dump qw/ pp /;
+# VERSION
 
 has api_key => (
     is       => 'ro',

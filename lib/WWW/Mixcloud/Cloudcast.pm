@@ -6,6 +6,8 @@ use namespace::autoclean;
 
 use Carp qw/ croak /;
 
+# VERSION
+
 use WWW::Mixcloud::Cloudcast::Tag;
 use WWW::Mixcloud::Cloudcast::Section;
 use WWW::Mixcloud::Picture;

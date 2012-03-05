@@ -5,6 +5,8 @@ use namespace::autoclean;
 
 use Carp qw/ croak /;
 
+# VERSION
+
 use WWW::Mixcloud::Picture;
 
 has name => (

@@ -5,6 +5,8 @@ use namespace::autoclean;
 
 use Carp qw/ croak /;
 
+# VERSION
+
 has size => (
     is       => 'ro',
     required => 1,
