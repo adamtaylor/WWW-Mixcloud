@@ -1,4 +1,4 @@
-# ABSTRACT: Class to represent a cloudcast from the Mixcloud API
+# ABSTRACT: Represents a cloudcast in the Mixcloud API
 package WWW::Mixcloud::Cloudcast;
 
 use Moose;

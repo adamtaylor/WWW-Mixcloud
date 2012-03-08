@@ -1,3 +1,4 @@
+# ABSTRACT: Represents categories in the Mixcloud API
 package WWW::Mixcloud::Category;
 
 use Moose;
@@ -9,30 +10,58 @@ use Carp qw/ croak /;
 
 use WWW::Mixcloud::Picture;
 
+=head1 ATTRIBUTES
+
+=head2 name
+
+=cut
+
 has name => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 format
+
+=cut
 
 has format => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 url
+
+=cut
+
 has url => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 key
+
+=cut
 
 has key => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 slug
+
+=cut
+
 has slug => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 pictures
+
+ArrayRef of L<WWW::Mixcloud::Picture> objects.
+
+=cut
 
 has pictures => (
     isa      => 'ArrayRef[WWW::Mixcloud::Picture]',
@@ -44,6 +73,8 @@ has pictures => (
 __PACKAGE__->meta->make_immutable;
 
 =head2 new_from_data
+
+    my $category = WWW::Mixcloud::Category->new_from_data( $data )
 
 =cut
 

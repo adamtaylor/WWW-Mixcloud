@@ -1,3 +1,4 @@
+# ABSTRACT: Represents cloudcast tags in the Mixcloud API
 package WWW::Mixcloud::Cloudcast::Tag;
 
 use Moose;
@@ -7,15 +8,29 @@ use Carp qw/ croak/;
 
 # VERSION
 
+=head1 ATTRIBUTES
+
+=head2 url
+
+=cut
+
 has url => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 name
+
+=cut
+
 has name => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 key
+
+=cut
 
 has key => (
     is       => 'ro',
@@ -24,7 +39,11 @@ has key => (
 
 __PACKAGE__->meta->make_immutable;
 
+=head1 METHODS
+
 =head2 new_list_from_data
+
+    my @tags = WWW::Mixcloud::Cloudcast::Tag->new_from_data( $data )
 
 =cut
 
@@ -42,6 +61,8 @@ sub new_list_from_data {
 
 =head2 new_from_data
 
+    my $tag = WWW::Mixcloud::Cloudcast::Tag->new_from_data( $data )
+
 =cut
 
 sub new_from_data {
@@ -54,6 +75,5 @@ sub new_from_data {
         key  => $data->{key},
     });
 }
-
 
 1;

@@ -1,3 +1,4 @@
+# ABSTRACT: Represents an artist in the Mixcloud API
 package WWW::Mixcloud::Artist;
 
 use Moose;
@@ -7,20 +8,38 @@ use Carp qw/ croak /;
 
 # VERSION
 
+=head1 ATTRIBUTES
+
+=head2 url
+
+=cut
+
 has url => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 name
+
+=cut
 
 has name => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 key
+
+=cut
+
 has key => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 slug
+
+=cut
 
 has slug => (
     is       => 'ro',
@@ -29,7 +48,11 @@ has slug => (
 
 __PACKAGE__->meta->make_immutable;
 
+=head1 METHODS
+
 =head2 new_from_data
+
+    my $artist = WWW::Mixcloud::Artist->new_from_data( $data )
 
 =cut
 

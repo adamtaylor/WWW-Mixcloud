@@ -1,3 +1,4 @@
+# ABSTRACT: Represents a user in the Mixcloud API
 package WWW::Mixcloud::User;
 
 use Moose;
@@ -9,25 +10,49 @@ use Carp qw/ croak /;
 
 use WWW::Mixcloud::Picture;
 
+=head1 ATTRIBUTES
+
+=head2 url
+
+=cut
+
 has url => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 username
+
+=cut
 
 has username => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 name
+
+=cut
+
 has name => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 key
+
+=cut
+
 has key => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 pictures
+
+ArrayRef of L<WWW::Mixcloud::Picture> objects.
+
+=cut
 
 has pictures => (
     isa      => 'ArrayRef[WWW::Mixcloud::Picture]',
@@ -38,7 +63,11 @@ has pictures => (
 
 __PACKAGE__->meta->make_immutable;
 
+=head1 METHODS
+
 =head2 new_from_data
+
+    my $user = WWW::Mixcloud::User->new_from_data( $data )
 
 =cut
 
