@@ -3,6 +3,7 @@ use Test::More;
 use WWW::Mixcloud;
 
 # Load a saved JSON API respsonse, instead of making a real API call
+no warnings 'redefine';
 local *WWW::Mixcloud::_api_call = sub {
 
     use JSON;
@@ -13,6 +14,7 @@ local *WWW::Mixcloud::_api_call = sub {
     return decode_json( $json_text );
 
 };
+use warnings;
 
 my $mixcloud = WWW::Mixcloud->new;
 
