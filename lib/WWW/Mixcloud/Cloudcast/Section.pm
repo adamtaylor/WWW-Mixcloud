@@ -22,6 +22,7 @@ has track => (
     isa      => 'WWW::Mixcloud::Track',
     is       => 'ro',
     required => 1,
+    predicate => 'has_track',
 );
 
 =head2 position
